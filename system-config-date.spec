@@ -1,12 +1,13 @@
 Summary:	A graphical interface for modifying system date and time
+Summary(pl):	Graficzny interfejs do zmiany daty i czasu systemowego
 Name:		system-config-date
 Version:	1.8.2
 Release:	0.1
 License:	GPL
 Group:		Base
-URL:		http://fedora.redhat.com/projects/config-tools/
 Source0:	%{name}-%{version}.tar.bz2
 # Source0-md5:	04b0e69d7d0c4d9fbffde77dfe62522b
+URL:		http://fedora.redhat.com/projects/config-tools/
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext-devel
 BuildRequires:	intltool
@@ -33,6 +34,11 @@ date and time, configuring the system time zone, and setting up the
 NTP daemon to synchronize the time of the system with a NTP time
 server.
 
+%description -l pl
+system-config-date to graficzny interfejs do zmiany daty i czasu
+systemowego, konfiguracji strefy czasowej i ustawiania demona NTP do
+synchronizacji czasu systemowego z serwerem czasu NTP.
+
 %prep
 %setup -q
 
@@ -41,11 +47,13 @@ server.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__make} DESTDIR=$RPM_BUILD_ROOT install
-desktop-file-install --vendor system --delete-original       \
-  --dir $RPM_BUILD_ROOT%{_desktopdir}             \
-  --add-category X-Red-Hat-Base                             \
-  $RPM_BUILD_ROOT%{_desktopdir}/system-config-date.desktop
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
+
+desktop-file-install --vendor system --delete-original \
+	--dir $RPM_BUILD_ROOT%{_desktopdir} \
+	--add-category X-Red-Hat-Base \
+	$RPM_BUILD_ROOT%{_desktopdir}/system-config-date.desktop
 
 %find_lang %{name}
 
@@ -73,6 +81,10 @@ fi
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc doc/*
+%attr(755,root,root) %{_bindir}/system-config-date
+%attr(755,root,root) %{_bindir}/system-config-time
+%attr(755,root,root) %{_bindir}/dateconfig
+%attr(755,root,root) %{_sbindir}/timeconfig
 %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/dateconfig
 %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/system-config-date
 %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/system-config-time
@@ -80,12 +92,8 @@ fi
 %config(noreplace) %verify(not md5 mtime size) /etc/security/console.apps/system-config-date
 %config(noreplace) %verify(not md5 mtime size) /etc/security/console.apps/system-config-time
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ntp/ntpservers
-%config(noreplace) %verify(not md5 mtime size) %{_datadir}/system-config-date/ntp.template
-%attr(755,root,root) %{_bindir}/system-config-date
-%attr(755,root,root) %{_bindir}/system-config-time
-%attr(755,root,root) %{_bindir}/dateconfig
-%attr(755,root,root) %{_sbindir}/timeconfig
 %dir %{_datadir}/system-config-date
+%config(noreplace) %verify(not md5 mtime size) %{_datadir}/system-config-date/ntp.template
 %{_datadir}/system-config-date/*.py[co]
 %{_datadir}/system-config-date/*.glade
 %{_datadir}/system-config-date/regions
@@ -93,7 +101,7 @@ fi
 %{_datadir}/system-config-date/pixmaps/system-config-date.png
 %{_datadir}/system-config-date/pixmaps/map1440.png
 %{_mandir}/man8/system-config-date*
-%{_mandir}/fr/man8/system-config-date*
-%{_mandir}/ja/man8/system-config-date*
+%lang(fr) %{_mandir}/fr/man8/system-config-date*
+%lang(ja) %{_mandir}/ja/man8/system-config-date*
 %{_desktopdir}/system-config-date.desktop
 %{_iconsdir}/hicolor/48x48/apps/system-config-date.png
