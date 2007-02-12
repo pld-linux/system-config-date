@@ -1,5 +1,5 @@
 Summary:	A graphical interface for modifying system date and time
-Summary(pl.UTF-8):   Graficzny interfejs do zmiany daty i czasu systemowego
+Summary(pl.UTF-8):	Graficzny interfejs do zmiany daty i czasu systemowego
 Name:		system-config-date
 Version:	1.8.2
 Release:	0.1
