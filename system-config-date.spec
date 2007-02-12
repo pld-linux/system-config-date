@@ -1,5 +1,5 @@
 Summary:	A graphical interface for modifying system date and time
-Summary(pl):	Graficzny interfejs do zmiany daty i czasu systemowego
+Summary(pl.UTF-8):   Graficzny interfejs do zmiany daty i czasu systemowego
 Name:		system-config-date
 Version:	1.8.2
 Release:	0.1
@@ -34,7 +34,7 @@ date and time, configuring the system time zone, and setting up the
 NTP daemon to synchronize the time of the system with a NTP time
 server.
 
-%description -l pl
+%description -l pl.UTF-8
 system-config-date to graficzny interfejs do zmiany daty i czasu
 systemowego, konfiguracji strefy czasowej i ustawiania demona NTP do
 synchronizacji czasu systemowego z serwerem czasu NTP.
