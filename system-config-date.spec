@@ -1,12 +1,13 @@
 Summary:	A graphical interface for modifying system date and time
 Summary(pl.UTF-8):	Graficzny interfejs do zmiany daty i czasu systemowego
 Name:		system-config-date
-Version:	1.8.2
-Release:	0.1
+Version:	1.9.17
+Release:	1
 License:	GPL
 Group:		Base
 Source0:	%{name}-%{version}.tar.bz2
-# Source0-md5:	04b0e69d7d0c4d9fbffde77dfe62522b
+# Source0-md5:	6551690e7362a7d912e3a6a70cba1915
+Patch0:		%{name}-desktop.patch
 URL:		http://fedora.redhat.com/projects/config-tools/
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext-devel
@@ -15,16 +16,13 @@ BuildRequires:	python
 #Requires(post):	hicolor-icon-theme
 #Requires(postun):	hicolor-icon-theme
 #Requires:	chkconfig
-#Requires:	htmlview
-#Requires:	newt
-#Requires:	ntp
+Requires:	python-newt
+Requires:	ntp-client
 #Requires:	pygtk2-libglade
 Requires:	python-gnome-canvas
-#Requires:	python2
-#Requires:	rhpl
+Requires:	python-rhpl
 #Requires:	usermode >= 1.36
 Conflicts:	firstboot <= 1.3.26
-ExclusiveOS:	Linux
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -41,6 +39,7 @@ synchronizacji czasu systemowego z serwerem czasu NTP.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__make}
@@ -55,7 +54,7 @@ desktop-file-install --vendor system --delete-original \
 	--add-category X-Red-Hat-Base \
 	$RPM_BUILD_ROOT%{_desktopdir}/system-config-date.desktop
 
-%find_lang %{name}
+%find_lang %{name} --with-gnome --with-omf
 
 %py_comp $RPM_BUILD_ROOT%{_datadir}/system-config-date
 %py_ocomp $RPM_BUILD_ROOT%{_datadir}/system-config-date
@@ -96,7 +95,6 @@ fi
 %config(noreplace) %verify(not md5 mtime size) %{_datadir}/system-config-date/ntp.template
 %{_datadir}/system-config-date/*.py[co]
 %{_datadir}/system-config-date/*.glade
-%{_datadir}/system-config-date/regions
 %dir %{_datadir}/system-config-date/pixmaps
 %{_datadir}/system-config-date/pixmaps/system-config-date.png
 %{_datadir}/system-config-date/pixmaps/map1440.png
