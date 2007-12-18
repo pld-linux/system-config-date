@@ -16,11 +16,12 @@ BuildRequires:	python
 #Requires(post):	hicolor-icon-theme
 #Requires(postun):	hicolor-icon-theme
 #Requires:	chkconfig
-Requires:	python-newt
+Requires:	newt
 Requires:	ntp-client
 #Requires:	pygtk2-libglade
 Requires:	python-gnome-canvas
 Requires:	python-rhpl
+Requires:	python-snack
 #Requires:	usermode >= 1.36
 Requires(post,postun):	desktop-file-utils
 Conflicts:	firstboot <= 1.3.26
