@@ -22,6 +22,7 @@ Requires:	ntp-client
 Requires:	python-gnome-canvas
 Requires:	python-rhpl
 #Requires:	usermode >= 1.36
+Requires(post,postun):	desktop-file-utils
 Conflicts:	firstboot <= 1.3.26
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -63,19 +64,11 @@ desktop-file-install --vendor system --delete-original \
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%if 0
 %post
-touch --no-create %{_datadir}/icons/hicolor
-if [ -x %{_bindir}/gtk-update-icon-cache ]; then
-	gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor
-fi
+%update_icon_cache hicolor
 
 %postun
-touch --no-create %{_datadir}/icons/hicolor
-if [ -x %{_bindir}/gtk-update-icon-cache ]; then
-	gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor
-fi
-%endif
+%update_icon_cache hicolor
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
