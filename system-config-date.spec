@@ -23,6 +23,7 @@ Requires:	python-gnome-canvas
 Requires:	python-rhpl
 Requires:	python-snack
 #Requires:	usermode >= 1.36
+Requires:	tzdata
 Requires(post,postun):	desktop-file-utils
 Conflicts:	firstboot <= 1.3.26
 BuildArch:	noarch
@@ -58,6 +59,15 @@ desktop-file-install --vendor system --delete-original \
 
 %find_lang %{name} --with-gnome --with-omf
 
+rm $RPM_BUILD_ROOT%{_bindir}/system-config-date
+cat > $RPM_BUILD_ROOT%{_bindir}/system-config-date << EOF
+#!/bin/sh
+/usr/bin/python /usr/share/system-config-date/system-config-date.pyc
+EOF
+
+ln -sf system-config-date $RPM_BUILD_ROOT%{_bindir}/dateconfig
+ln -sf system-config-date $RPM_BUILD_ROOT%{_bindir}/system-config-time
+
 %py_comp $RPM_BUILD_ROOT%{_datadir}/system-config-date
 %py_ocomp $RPM_BUILD_ROOT%{_datadir}/system-config-date
 %py_postclean %{_datadir}/system-config-date
@@ -84,7 +94,6 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %verify(not md5 mtime size) /etc/security/console.apps/dateconfig
 %config(noreplace) %verify(not md5 mtime size) /etc/security/console.apps/system-config-date
 %config(noreplace) %verify(not md5 mtime size) /etc/security/console.apps/system-config-time
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ntp/ntpservers
 %dir %{_datadir}/system-config-date
 %config(noreplace) %verify(not md5 mtime size) %{_datadir}/system-config-date/ntp.template
 %{_datadir}/system-config-date/*.py[co]
