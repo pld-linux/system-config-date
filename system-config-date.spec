@@ -13,8 +13,8 @@ BuildRequires:	desktop-file-utils
 BuildRequires:	gettext-devel
 BuildRequires:	intltool
 BuildRequires:	python
-#Requires(post):	hicolor-icon-theme
-#Requires(postun):	hicolor-icon-theme
+Requires(post,postun):	gtk+2
+Requires(post,postun):	hicolor-icon-theme
 #Requires:	chkconfig
 Requires:	newt
 Requires:	ntp-client
@@ -24,7 +24,6 @@ Requires:	python-rhpl
 Requires:	python-snack
 #Requires:	usermode >= 1.36
 Requires:	tzdata
-Requires(post,postun):	desktop-file-utils
 Conflicts:	firstboot <= 1.3.26
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
