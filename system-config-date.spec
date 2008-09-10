@@ -5,10 +5,11 @@ Version:	1.9.17
 Release:	1
 License:	GPL
 Group:		Base
+# https://fedorahosted.org/releases/s/y/system-config-date/ (not yet)
 Source0:	%{name}-%{version}.tar.bz2
 # Source0-md5:	6551690e7362a7d912e3a6a70cba1915
 Patch0:		%{name}-desktop.patch
-URL:		http://fedora.redhat.com/projects/config-tools/
+URL:		http://fedoraproject.org/wiki/SystemConfig/date
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext-devel
 BuildRequires:	intltool
