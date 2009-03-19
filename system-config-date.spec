@@ -2,7 +2,7 @@ Summary:	A graphical interface for modifying system date and time
 Summary(pl.UTF-8):	Graficzny interfejs do zmiany daty i czasu systemowego
 Name:		system-config-date
 Version:	1.9.17
-Release:	2
+Release:	3
 License:	GPL
 Group:		Base
 # https://fedorahosted.org/releases/s/y/system-config-date/ (not yet)
