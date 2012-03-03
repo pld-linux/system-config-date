@@ -2,7 +2,7 @@ Summary:	A graphical interface for modifying system date and time
 Summary(pl.UTF-8):	Graficzny interfejs do zmiany daty i czasu systemowego
 Name:		system-config-date
 Version:	1.9.67
-Release:	1
+Release:	2
 License:	GPL
 Group:		Base
 Source0:	http://fedorahosted.org/released/system-config-date/%{name}-%{version}.tar.bz2
@@ -21,7 +21,6 @@ Requires:	hicolor-icon-theme
 Requires:	ntpdate
 Requires:	python-gnome-canvas
 Requires:	python-pygtk-glade
-Requires:	python-rhpl
 Requires:	python-slip >= 0.2.11
 Requires:	python-snack
 Requires:	tzdata
