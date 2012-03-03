@@ -1,13 +1,11 @@
---- system-config-date-1.9.17/system-config-date.desktop.in~	2007-11-22 11:06:57.000000000 +0100
-+++ system-config-date-1.9.17/system-config-date.desktop.in	2007-12-18 13:23:40.724062888 +0100
-@@ -1,8 +1,8 @@
- [Desktop Entry]
- _Name=Date & Time
+--- system-config-date-1.9.67/system-config-date.desktop.in~	2011-10-18 13:49:29.000000000 +0300
++++ system-config-date-1.9.67/system-config-date.desktop.in	2012-03-03 13:37:50.852903093 +0200
+@@ -3,7 +3,7 @@
+ _GenericName=Set Date & Time
+ _X-GNOME-FullName=System-Config-Date (Set Date & Time)
  _Comment=Change system date and time
 -Categories=System;Settings;
--Icon=system-config-date.png
 +Categories=GTK;System;Settings;
-+Icon=system-config-date
+ Icon=system-config-date
  Exec=/usr/bin/system-config-date
  Type=Application
- Terminal=false

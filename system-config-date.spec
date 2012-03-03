@@ -1,13 +1,12 @@
 Summary:	A graphical interface for modifying system date and time
 Summary(pl.UTF-8):	Graficzny interfejs do zmiany daty i czasu systemowego
 Name:		system-config-date
-Version:	1.9.17
-Release:	4
+Version:	1.9.67
+Release:	0.2
 License:	GPL
 Group:		Base
-# https://fedorahosted.org/releases/s/y/system-config-date/ (not yet)
-Source0:	%{name}-%{version}.tar.bz2
-# Source0-md5:	6551690e7362a7d912e3a6a70cba1915
+Source0:	http://fedorahosted.org/released/system-config-date/%{name}-%{version}.tar.bz2
+# Source0-md5:	5af4caafb46a9c63a5fcc6e0e6e4d2e4
 Patch0:		%{name}-desktop.patch
 URL:		http://fedoraproject.org/wiki/SystemConfig/date
 BuildRequires:	desktop-file-utils
@@ -17,14 +16,15 @@ BuildRequires:	python
 Requires(post,postun):	gtk-update-icon-cache
 Requires(post,postun):	hicolor-icon-theme
 #Requires:	chkconfig
-Requires:	newt
-Requires:	ntp-client
-#Requires:	pygtk2-libglade
+Requires:	hicolor-icon-theme
+Requires:	ntpdate
 Requires:	python-gnome-canvas
+Requires:	python-pygtk-glade
 Requires:	python-rhpl
+Requires:	python-slip >= 0.2.11
 Requires:	python-snack
 Requires:	tzdata
-#Requires:	usermode >= 1.36
+Requires:	usermode-gtk >= 1.94
 Conflicts:	firstboot <= 1.3.26
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -54,7 +54,6 @@ rm -rf $RPM_BUILD_ROOT
 
 desktop-file-install --vendor system --delete-original \
 	--dir $RPM_BUILD_ROOT%{_desktopdir} \
-	--add-category X-Red-Hat-Base \
 	$RPM_BUILD_ROOT%{_desktopdir}/system-config-date.desktop
 
 %find_lang %{name} --with-gnome --with-omf
@@ -62,7 +61,7 @@ desktop-file-install --vendor system --delete-original \
 rm $RPM_BUILD_ROOT%{_bindir}/system-config-date
 cat > $RPM_BUILD_ROOT%{_bindir}/system-config-date << EOF
 #!/bin/sh
-/usr/bin/python /usr/share/system-config-date/system-config-date.pyc
+%{__python} %{_datadir}/system-config-date/system-config-date.pyc
 EOF
 
 ln -sf system-config-date $RPM_BUILD_ROOT%{_bindir}/dateconfig
@@ -83,26 +82,26 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc doc/*
 %attr(755,root,root) %{_bindir}/system-config-date
 %attr(755,root,root) %{_bindir}/system-config-time
 %attr(755,root,root) %{_bindir}/dateconfig
-%attr(755,root,root) %{_sbindir}/timeconfig
-%config(noreplace) %verify(not md5 mtime size) /etc/pam.d/dateconfig
 %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/system-config-date
-%config(noreplace) %verify(not md5 mtime size) /etc/pam.d/system-config-time
-%config(noreplace) %verify(not md5 mtime size) /etc/security/console.apps/dateconfig
 %config(noreplace) %verify(not md5 mtime size) /etc/security/console.apps/system-config-date
-%config(noreplace) %verify(not md5 mtime size) /etc/security/console.apps/system-config-time
 %dir %{_datadir}/system-config-date
-%config(noreplace) %verify(not md5 mtime size) %{_datadir}/system-config-date/ntp.template
+%config(noreplace) %verify(not md5 mtime size) %{_datadir}/system-config-date/ntp.conf.template
 %{_datadir}/system-config-date/*.py[co]
 %{_datadir}/system-config-date/*.glade
 %dir %{_datadir}/system-config-date/pixmaps
-%{_datadir}/system-config-date/pixmaps/system-config-date.png
 %{_datadir}/system-config-date/pixmaps/map1440.png
 %{_mandir}/man8/system-config-date*
 %lang(fr) %{_mandir}/fr/man8/system-config-date*
 %lang(ja) %{_mandir}/ja/man8/system-config-date*
 %{_desktopdir}/system-config-date.desktop
-%{_iconsdir}/hicolor/48x48/apps/system-config-date.png
+%{_iconsdir}/hicolor/*/apps/system-config-date.png
+%{_iconsdir}/hicolor/*/apps/system-config-date.svg
+
+%dir %{py_sitescriptdir}/scdate
+%{py_sitescriptdir}/scdate/*.py[co]
+%dir %{py_sitescriptdir}/scdate/core
+%{py_sitescriptdir}/scdate/core/*.py[co]
+%{py_sitescriptdir}/scdate-%{version}-py*.egg-info
