@@ -1,0 +1,64 @@
+--- system-config-date-1.9.67/./src/scdate/core/timezoneBackend.py~	2011-10-18 13:49:29.000000000 +0300
++++ system-config-date-1.9.67/./src/scdate/core/timezoneBackend.py	2012-03-03 13:52:47.103894646 +0200
+@@ -49,12 +49,12 @@
+             #If it does, copy the new time zone file into the chroot jail
+             linkorcopyfile (fromFile, "/var/spool/postfix/etc/localtime")
+ 
+-        #Write info to the /etc/sysconfig/clock file
++        #Write info to the /etc/sysconfig/timezone file
+         f = open("/etc/sysconfig/clock", "w")
+         f.write ("# The time zone of the system is defined by the contents of /etc/localtime.\n")
+         f.write ("# This file is only for evaluation by system-config-date, do not rely on its\n")
+         f.write ("# contents elsewhere.\n")
+-        f.write('ZONE="%s"\n' % timezone)
++        f.write('TIMEZONE="%s"\n' % timezone)
+         f.close()
+ 
+         if self._adjtimeHasUTCInfo:
+@@ -81,7 +81,7 @@
+     def __init__(self):
+         self.tz = "America/New_York"
+         self.utc = "false"
+-        path = '/etc/sysconfig/clock'
++        path = '/etc/sysconfig/timezone'
+         lines = []
+         self._canHwClock = None
+         self._adjtimeHasUTCInfo = None
+@@ -91,7 +91,7 @@
+             lines = fd.readlines()
+             fd.close()
+         else:
+-            #There's no /etc/sysconfig/clock file, so make one
++            #There's no /etc/sysconfig/timezone file, so make one
+             fd = open(path, 'w')
+             fd.close
+             pass
+@@ -103,7 +103,7 @@
+                     continue
+                 try:
+                     tokens = line.split ("=")
+-                    if tokens[0] == "ZONE":
++                    if tokens[0] == "TIMEZONE":
+                         self.tz = tokens[1].replace ('"', '')
+                         self.tz = self.tz.replace ('_', ' ')
+                 except:
+--- system-config-date-1.9.67/./src/timezone_map_gui.py~	2011-10-18 13:49:29.000000000 +0300
++++ system-config-date-1.9.67/./src/timezone_map_gui.py	2012-03-03 13:53:15.975214698 +0200
+@@ -214,7 +214,7 @@
+             if entry.tz == default:
+                 self.currentEntry = entry
+             if entry.tz == "America/New York":
+-                #In case the /etc/sysconfig/clock is messed up, use New York as default
++                #In case the /etc/sysconfig/timezone is messed up, use New York as default
+                 self.fallbackEntry = entry
+ 
+         self.treeStore.set_sort_column_id (self.columns.TZSORT, gtk.SORT_ASCENDING)
+@@ -604,7 +604,7 @@
+             self.markers[self.currentEntry.tz].show ()
+ 
+         if not entry:
+-            # If the value in /etc/sysconfig/clock is invalid, default to New York
++            # If the value in /etc/sysconfig/timezone is invalid, default to New York
+             self.currentEntry = self.fallbackEntry
+         else:
+             self.currentEntry = entry

@@ -2,12 +2,13 @@ Summary:	A graphical interface for modifying system date and time
 Summary(pl.UTF-8):	Graficzny interfejs do zmiany daty i czasu systemowego
 Name:		system-config-date
 Version:	1.9.67
-Release:	0.2
+Release:	1
 License:	GPL
 Group:		Base
 Source0:	http://fedorahosted.org/released/system-config-date/%{name}-%{version}.tar.bz2
 # Source0-md5:	5af4caafb46a9c63a5fcc6e0e6e4d2e4
 Patch0:		%{name}-desktop.patch
+Patch1:		tzconfig.patch
 URL:		http://fedoraproject.org/wiki/SystemConfig/date
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext-devel
@@ -43,6 +44,7 @@ synchronizacji czasu systemowego z serwerem czasu NTP.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__make}
