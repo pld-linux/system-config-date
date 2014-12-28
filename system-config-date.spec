@@ -11,7 +11,7 @@ Patch0:		%{name}-desktop.patch
 Patch1:		tzconfig.patch
 URL:		http://fedoraproject.org/wiki/SystemConfig/date
 BuildRequires:	desktop-file-utils
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	intltool
 BuildRequires:	python
 Requires(post,postun):	gtk-update-icon-cache
